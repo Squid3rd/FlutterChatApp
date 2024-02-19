@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutterchatapp/components/buttoncomp.dart';
 import 'package:flutterchatapp/components/textfieldcomp.dart';
 
-class LoginPage extends StatelessWidget {
-  // E and Pw Controller
+class RegisPage extends StatelessWidget {
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _passwEditingController = TextEditingController();
+  final TextEditingController _confirmpasswEditingController =
+      TextEditingController();
 
-  // Login Method
-  void login() {}
+
+// Regis Methods
+  void regis() {}
 
   // go Regis
   final void Function()? onTap;
 
-  LoginPage({super.key, required this.onTap});
+  RegisPage({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class LoginPage extends StatelessWidget {
 
           // Welcome Message
           Text(
-            " Welcome Na krub to my Chat App",
+            " Create Account",
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
               fontSize: 16,
@@ -59,10 +61,18 @@ class LoginPage extends StatelessWidget {
           ),
 
           const SizedBox(height: 30),
+
+          TextFieldComp(
+            hinttext: 'Confirm Password',
+            obscureText: true,
+            controller: _confirmpasswEditingController,
+          ),
+
+          const SizedBox(height: 30),
           // Login button
           ButtonMe(
-            NameButton: 'Login',
-            onTap: login,
+            NameButton: 'Register',
+            onTap: regis,
           ),
 
           const SizedBox(height: 15),
@@ -71,14 +81,16 @@ class LoginPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("No Account?",
-              style: TextStyle(
+              Text(
+                "Have Account?",
+                style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
-                ),),
+                ),
+              ),
               GestureDetector(
                 onTap: onTap,
                 child: Text(
-                  " Register Now",
+                  " Login Now",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
@@ -91,6 +103,4 @@ class LoginPage extends StatelessWidget {
       )),
     );
   }
-
-
 }
