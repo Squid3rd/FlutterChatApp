@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterchatapp/auth/auth_service.dart';
 import 'package:flutterchatapp/components/buttoncomp.dart';
 import 'package:flutterchatapp/components/textfieldcomp.dart';
 
@@ -8,7 +9,19 @@ class LoginPage extends StatelessWidget {
   final TextEditingController _passwEditingController = TextEditingController();
 
   // Login Method
-  void login() {}
+  void login(BuildContext context) async{
+    // Auth Serv
+    final authService = AuthService();
+
+
+    // try Login and Catch Errors
+  try {
+    await authService.signInWEmailPassword(_emailEditingController.text, _passwEditingController.text);
+  }catch (e){
+    showDialog(context: context, builder: (context) => AlertDialog(title: Text(e.toString())));
+  }
+
+  }
 
   // go Regis
   final void Function()? onTap;
@@ -62,7 +75,7 @@ class LoginPage extends StatelessWidget {
           // Login button
           ButtonMe(
             NameButton: 'Login',
-            onTap: login,
+            onTap: () => login(context),
           ),
 
           const SizedBox(height: 15),
