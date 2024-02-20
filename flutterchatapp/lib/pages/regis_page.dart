@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterchatapp/auth/auth_service.dart';
 import 'package:flutterchatapp/components/buttoncomp.dart';
 import 'package:flutterchatapp/components/textfieldcomp.dart';
 
@@ -8,9 +9,27 @@ class RegisPage extends StatelessWidget {
   final TextEditingController _confirmpasswEditingController =
       TextEditingController();
 
-
 // Regis Methods
-  void regis() {}
+  void regis(BuildContext context) {
+    // Get Auth from auth_service
+    final _auth = AuthService();
+
+    if (_passwEditingController.text == _confirmpasswEditingController.text) {
+      try {
+        _auth.signUpWEmailPassword(
+            _emailEditingController.text, _passwEditingController.text);
+      } catch (e) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(title: Text(e.toString())));
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) =>
+            const  AlertDialog(title: Text("Password Don't Match")));
+    }
+  }
 
   // go Regis
   final void Function()? onTap;
@@ -72,7 +91,7 @@ class RegisPage extends StatelessWidget {
           // Login button
           ButtonMe(
             NameButton: 'Register',
-            onTap: regis,
+            onTap: () => regis(context),
           ),
 
           const SizedBox(height: 15),
